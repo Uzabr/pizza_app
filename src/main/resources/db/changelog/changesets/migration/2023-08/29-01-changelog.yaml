@@ -1,0 +1,263 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1693305186411-1
+      author: abror
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_category
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+            tableName: category
+  - changeSet:
+      id: 1693305186411-2
+      author: abror
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_orderitem
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: order_count
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: unit_price
+                  type: DOUBLE
+            tableName: order_item
+  - changeSet:
+      id: 1693305186411-3
+      author: abror
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_orders
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: user_id_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: sum_cost
+                  type: DOUBLE
+              - column:
+                  name: order_date
+                  type: DATETIME
+              - column:
+                  name: status
+                  type: VARCHAR(255)
+              - column:
+                  name: payment
+                  type: VARCHAR(255)
+              - column:
+                  name: item_id
+                  type: BIGINT
+            tableName: orders
+  - changeSet:
+      id: 1693305186411-4
+      author: abror
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_pizza
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: description
+                  type: text
+              - column:
+                  name: image
+                  type: VARBINARY
+              - column:
+                  name: categories_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: price
+                  type: DOUBLE
+              - column:
+                  name: item_id
+                  type: BIGINT
+            tableName: pizza
+  - changeSet:
+      id: 1693305186411-5
+      author: abror
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                  name: user_id
+                  type: BIGINT
+              - column:
+                  name: roles
+                  type: INT
+            tableName: user_role
+  - changeSet:
+      id: 1693305186411-6
+      author: abror
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_users
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: username
+                  type: VARCHAR(255)
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+              - column:
+                  name: password
+                  type: VARCHAR(3000)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: address
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: phone_number
+                  type: INT
+            tableName: users
+  - changeSet:
+      id: 1693305186411-7
+      author: abror
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: name
+            constraintName: uc_category_name
+            tableName: category
+  - changeSet:
+      id: 1693305186411-8
+      author: abror
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: name
+            constraintName: uc_pizza_name
+            tableName: pizza
+  - changeSet:
+      id: 1693305186411-9
+      author: abror
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: price
+            constraintName: uc_pizza_price
+            tableName: pizza
+  - changeSet:
+      id: 1693305186411-10
+      author: abror
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: username
+            constraintName: uc_users_username
+            tableName: users
+  - changeSet:
+      id: 1693305186411-11
+      author: abror
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: item_id
+            baseTableName: orders
+            constraintName: FK_ORDERS_ON_ITEM
+            referencedColumnNames: id
+            referencedTableName: order_item
+  - changeSet:
+      id: 1693305186411-12
+      author: abror
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id_id
+            baseTableName: orders
+            constraintName: FK_ORDERS_ON_USERID
+            referencedColumnNames: id
+            referencedTableName: users
+  - changeSet:
+      id: 1693305186411-13
+      author: abror
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: categories_id
+            baseTableName: pizza
+            constraintName: FK_PIZZA_ON_CATEGORIES
+            referencedColumnNames: id
+            referencedTableName: category
+  - changeSet:
+      id: 1693305186411-14
+      author: abror
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: item_id
+            baseTableName: pizza
+            constraintName: FK_PIZZA_ON_ITEM
+            referencedColumnNames: id
+            referencedTableName: order_item
+  - changeSet:
+      id: 1693305186411-15
+      author: abror
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: user_role
+            constraintName: fk_user_role_on_user
+            referencedColumnNames: id
+            referencedTableName: users
+
