@@ -1,16 +1,17 @@
 package com.example.pizza_app.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.annotations.Type;
 
 import java.sql.Types;
-import java.util.Date;
-import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class Pizza {
 
     @Id
@@ -33,7 +34,4 @@ public class Pizza {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private OrderItem item;
-
-    public Pizza() {
-    }
 }

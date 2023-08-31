@@ -15,8 +15,8 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User userId;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    private User userId;
     private double sumCost;
 
     @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")

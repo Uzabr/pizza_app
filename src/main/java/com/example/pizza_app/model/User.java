@@ -1,16 +1,20 @@
 package com.example.pizza_app.model;
 
 import com.example.pizza_app.model.roles.Roles;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
+import org.hibernate.proxy.HibernateProxy;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
+@AllArgsConstructor
 @Table(name = "users")
 public class User {
 
@@ -28,19 +32,17 @@ public class User {
     @Column(nullable = false)
     private String address;
 
-    @ElementCollection(targetClass = Roles.class)
-    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+    inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<Roles> roles = new HashSet<>();
+
     @Column(nullable = false)
-    private int phoneNumber;
+    private String  phoneNumber;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userId", orphanRemoval = true)
-    private List<Order> orderList;
-
-    public User() {
-    }
-
-
-
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userId", orphanRemoval = true)
+//    @ToString.Exclude
+//    private List<Order> orderList;
 
 }

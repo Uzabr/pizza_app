@@ -1,0 +1,79 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1693409635397-2
+      author: abror (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_roles
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+            tableName: roles
+  - changeSet:
+      id: 1693409635397-3
+      author: abror (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: role_id
+                  type: BIGINT
+            tableName: user_role
+  - changeSet:
+      id: 1693409635397-4
+      author: abror (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addPrimaryKey:
+            columnNames: role_id, user_id
+            constraintName: pk_user_role
+            tableName: user_role
+  - changeSet:
+      id: 1693409635397-5
+      author: abror (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: email
+            constraintName: uc_users_email
+            tableName: users
+  - changeSet:
+      id: 1693409635397-6
+      author: abror (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: role_id
+            baseTableName: user_role
+            constraintName: fk_user_role_on_roles
+            referencedColumnNames: id
+            referencedTableName: roles
+  - changeSet:
+      id: 1693409635397-7
+      author: abror (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - dropColumn:
+            columnName: roles
+            tableName: user_role
+  - changeSet:
+      id: 1693409635397-1
+      author: abror (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addNotNullConstraint:
+            columnDataType: VARCHAR(255)
+            columnName: email
+            tableName: users
+            validate: true
+

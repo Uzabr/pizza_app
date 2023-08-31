@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div>
+    <a th:href="@{/logout}">Logout</a>
+    <br/>
+    <br/>
+    <a th:href="@{/admin}"> Home page </a>
+</div>
+<h1 th:text="Users"></h1>
+<br/>
+<div>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Address</th>
+
+        </tr>
+        <tr th:each="usr:${users}">
+            <td th:utext="${usr.getId()}"></td>
+            <td th:utext="${usr.getUsername()}"></td>
+            <td th:utext="${usr.getEmail()}"></td>
+            <td th:utext="${usr.getPhoneNumber()}"></td>
+            <td th:utext="${usr.getAddress()}"></td>
+        </tr>
+
+    </table>
+</div>
+
+</body>
+</html>
