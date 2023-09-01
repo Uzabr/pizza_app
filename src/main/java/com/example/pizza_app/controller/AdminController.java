@@ -6,12 +6,10 @@ import com.example.pizza_app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
+@RequestMapping("/")
 public class AdminController {
 
     private UserService userService;
@@ -22,7 +20,7 @@ public class AdminController {
     }
 
 
-    @GetMapping("/admin")
+    @GetMapping
     public String admin(ModelMap modelMap) {
         modelMap.addAttribute("users", userService.getAllUsers());
         modelMap.addAttribute("roles", userService.getRol());
